@@ -24,17 +24,17 @@ jobs:
         export GOARCH=amd64
         go build -ldflags="-s -w" -o release/helloworld.exe
 
-#    - name: Build for Linux
-#      run: |
-#        export GOOS=linux
-#        export GOARCH=amd64
-#        go build -ldflags="-s -w" -o release/helloworld_linux
-#
-#    - name: Build for macOS
-#      run: |
-#        export GOOS=darwin
-#        export GOARCH=amd64
-#        go build -ldflags="-s -w" -o release/helloworld_mac
+    - name: Build for Linux
+      run: |
+        export GOOS=linux
+        export GOARCH=amd64
+        go build -ldflags="-s -w" -o release/helloworld_linux
+
+    - name: Build for macOS
+      run: |
+        export GOOS=darwin
+        export GOARCH=amd64
+        go build -ldflags="-s -w" -o release/helloworld_mac
 
     - name: Upload helloworld.exe
       uses: actions/upload-artifact@v3
@@ -42,3 +42,14 @@ jobs:
         name: helloworld.exe
         path: release/helloworld.exe
 
+    - name: Upload helloworld_linux
+      uses: actions/upload-artifact@v3
+      with:
+        name: helloworld_linux
+        path: release/helloworld_linux
+
+    - name: Upload helloworld_mac
+      uses: actions/upload-artifact@v3
+      with:
+        name: helloworld_mac
+        path: release/helloworld_mac
