@@ -10,37 +10,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Setup Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.18
+    - name: Setup Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.18
 
-      - name: Build for Windows
-        run: |
-          export GOOS=windows
-          export GOARCH=amd64
-          go build -ldflags="-s -w" -o helloworld.exe
+    - name: Build for Windows
+      run: |
+        export GOOS=windows
+        export GOARCH=amd64
+        go build -ldflags="-s -w" -o helloworld.exe
 
-      - name: Build for Linux
-        run: |
-          export GOOS=linux
-          export GOARCH=amd64
-          go build -ldflags="-s -w" -o helloworld_linux
+    - name: Build for Linux
+      run: |
+        export GOOS=linux
+        export GOARCH=amd64
+        go build -ldflags="-s -w" -o helloworld_linux
 
-      - name: Build for macOS
-        run: |
-          export GOOS=darwin
-          export GOARCH=amd64
-          go build -ldflags="-s -w" -o helloworld_mac
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with: # 将下述可执行文件 release 上去
-          files: |
-            helloworld.exe
-            helloworld_linux
-            helloworld_mac
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build for macOS
+      run: |
+        export GOOS=darwin
+        export GOARCH=amd64
+        go build -ldflags="-s -w" -o helloworld_mac
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with: # 将下述可执行文件 release 上去
+        files: |
+          helloworld.exe
+          helloworld_linux
+          helloworld_mac
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
