@@ -22,16 +22,26 @@ jobs:
       run: |
         export GOOS=windows
         export GOARCH=amd64
-        go build -ldflags="-s -w" -o release/helloworld.exe
+        go build -ldflags="-s -w" -o helloworld.exe
 
     - name: Build for Linux
       run: |
         export GOOS=linux
         export GOARCH=amd64
-        go build -ldflags="-s -w" -o release/helloworld
+        go build -ldflags="-s -w" -o helloworld_linux
 
     - name: Build for macOS
       run: |
         export GOOS=darwin
         export GOARCH=amd64
-        go build -ldflags="-s -w" -o release/helloworld
+        go build -ldflags="-s -w" -o helloworld_mac
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with: # 将下述可执行文件 release 上去
+        files: |
+          helloworld.exe
+          helloworld_linux
+          helloworld_mac
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
